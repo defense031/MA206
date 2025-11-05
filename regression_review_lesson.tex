@@ -1,0 +1,563 @@
+\documentclass[12pt]{article}
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+\usepackage{graphicx} % For including images
+\usepackage{fancyhdr} % For headers and footers
+\usepackage{hyperref}
+\usepackage{caption}
+\usepackage{booktabs}
+\usepackage{amsmath}
+\usepackage{xcolor}
+\usepackage{pgfplots}
+\usepackage{subcaption}
+\usepackage{pdflscape}
+\usepackage{float}
+\usepackage{placeins}
+\renewcommand\arraystretch{1.3}
+\pgfplotsset{compat=1.17}
+\usepackage{tikz}
+
+\begin{document}
+% Header block
+\noindent
+\begin{minipage}[t]{0.075\textwidth}
+    \vspace{0pt}
+    \includegraphics[width=1.6cm]{figures/Math_Mule.png}
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.9\textwidth}
+    \vspace{0pt}
+    \begin{tabular}{p{0.55\textwidth} p{0.4\textwidth}}
+        \textbf{\Large MA206} & \hfill AY25-2 \\
+        Probability \& Statistics & \hfill Lesson 21 \\
+        Lesson: Linear Regression Review & \hfill Cadet: \underline{\hspace{2cm}}
+    \end{tabular}
+\end{minipage}
+
+\vspace{1em}
+\hrule
+\vspace{0.5cm}
+
+\section*{Lesson Objectives}
+\begin{enumerate}
+    \item Understand the impact of interaction effects on a linear model
+    \item Review linear regression concepts through hands-on problem solving
+    \item Practice hypothesis testing and model interpretation
+\end{enumerate}
+
+\hrule
+\vspace{0.5cm}
+
+% ==================== PART 1: INTERACTION EFFECTS LESSON (10-15 min) ====================
+\section*{Part 1: Introduction to Interaction Effects}
+
+\subsection*{Interaction Effects: Conceptual Overview}
+
+\noindent
+\textbf{Motivating Example:} A tutoring program may boost low‑performers' test scores far more than high‑performers'. This unequal benefit is an \textit{interaction} effect.
+
+\vspace{0.25cm}
+
+\noindent
+\textbf{What Is an Interaction?}
+\begin{itemize}
+  \item Occurs when one predictor's effect on \(Y\) changes based on another predictor.
+  \item Captures synergy between variables.
+        \begin{itemize}
+            \item Amplifying
+            \item Dampening
+        \end{itemize}
+\end{itemize}
+
+\vspace{0.25cm}
+
+\noindent
+\textbf{Visual Comparison:}
+\begin{itemize}
+  \item \textbf{Before Interaction:} Parallel slopes → same effect of \(X\) across groups.
+  \item \textbf{After Interaction:} Divergent slopes → effect of \(X\) depends on group.
+\end{itemize}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.9\textwidth]{figures/interaction_before_after.png}
+  \caption{Left: No interaction. Right: With interaction.}
+\end{figure}
+
+\vspace{0.25cm}
+
+\noindent
+\textbf{General Form:}
+\[
+\widehat y = \hat{\beta}_0 + \hat{\beta}_1 x_1 + \hat{\beta}_2 x_2 + \hat{\beta}_3 (x_1 \times x_2)
+\]
+\begin{itemize}
+  \item \(\hat{\beta}_3\) $\neq$ 0 indicates an interaction may be present.
+\end{itemize}
+
+\vspace{0.25cm}
+
+\noindent
+\textbf{Interpretation of \(\hat{\beta}_3\):}
+\begin{itemize}
+  \item Positive: predictors amplify each other.
+  \item Negative: one predictor weakens the other.
+\end{itemize}
+
+\vspace{0.5cm}
+
+\noindent
+\textbf{Why It Matters:}
+\begin{itemize}
+  \item Reveals conditional relationships that additive models miss.
+  \item Helps identify subgroups for whom predictors have stronger or weaker effects.
+  \item Improves predictive accuracy by capturing the interplay between variables.
+\end{itemize}
+
+\subsection*{Example: Attendance × CorpsSquad}
+An \textbf{interaction} means the effect of one predictor depends on another. Here: "Does the benefit of higher attendance on TEE differ for Corps Squad cadets versus non‑Corps Squad cadets?"
+
+\begin{figure}[H]
+  \centering
+  \begin{subfigure}[b]{0.45\textwidth}
+    \includegraphics[width=\textwidth]{figures/attendance_interaction_plot.png}
+    \caption{Predicted TEE vs Attendance}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[b]{0.45\textwidth}
+    \includegraphics[width=\textwidth]{figures/attendance_slope_plot.png}
+    \caption{Attendance Effect (Slope) by Group}
+  \end{subfigure}
+  \caption{Interaction shows Corps Squad cadets gain more TEE points per \% attendance than non‑Corps cadets.}
+\end{figure}
+\FloatBarrier
+
+\noindent
+\textbf{Takeaway:} The red line's steeper slope indicates Corps Squad cadets benefit more from improved attendance — a possible interaction effect!
+
+\newpage
+
+% ==================== PART 2: SCAVENGER HUNT GAME (45-50 min) ====================
+\section*{Part 2: Linear Regression Review Scavenger Hunt}
+
+\subsection*{Game Rules and Scoring System}
+
+\textbf{Overview:} You will work through \emph{six} regression problems, each divided into three stages:
+\begin{itemize}
+    \item \textbf{Stage 1:} Identify the regression concept being tested
+    \item \textbf{Stage 2:} Examine regression output or data
+    \item \textbf{Stage 3:} Perform calculations or state hypotheses
+\end{itemize}
+
+\textbf{Scoring:}
+\begin{itemize}
+    \item Each stage of each problem is worth \textbf{100 points} if you answer correctly on the first attempt.
+    \item If your first attempt is \emph{incorrect}, you can only earn \textbf{50 points} for that stage.
+    \item Hints cost 25 points each.
+\end{itemize}
+
+\textbf{Flow of the Game:}
+\begin{enumerate}
+    \item Complete all three stages of each problem.
+    \item Check your answer with CPT Semmel after each stage to receive your next clue.
+    \item Add up your points at the end to see your total out of \textbf{1800 points}!
+\end{enumerate}
+
+\vspace{1cm}
+
+\subsection*{Reference: LINE Conditions for Linear Regression}
+Remember that valid linear regression requires checking:
+\begin{itemize}
+    \item \textbf{L}inearity: The relationship between predictors and response is linear
+    \item \textbf{I}ndependence: Observations are independent
+    \item \textbf{N}ormality: Residuals are approximately normally distributed
+    \item \textbf{E}qual variance: Residuals have constant variance (homoscedasticity)
+\end{itemize}
+
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% PROBLEM 1 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{center}
+  {\Large \textbf{Problem 1: Simple Linear Regression Basics}}
+\end{center}
+
+\vspace{1cm}
+\noindent
+\textbf{Stage 1: Context \& Concept}
+
+A sports scientist studies the relationship between hours of weekly training and race completion time (in minutes) for marathon runners. After collecting data from 25 runners, she fits a simple linear regression model:
+
+\[
+\widehat{\text{Time}} = 245 - 3.2 \times \text{Hours}
+\]
+
+\noindent
+\textbf{Question:} What does the slope coefficient $-3.2$ mean in practical terms?
+
+\vspace{3cm}
+
+\noindent
+\textbf{Stage 2: Data Interpretation}
+
+Using the model above, predict the marathon completion time for a runner who trains 15 hours per week.
+
+\vspace{3cm}
+
+\noindent
+\textbf{Stage 3: Residual Calculation}
+
+Suppose a runner who trains 15 hours per week actually completed the marathon in 190 minutes. Calculate the residual for this observation.
+
+\vspace{0.5cm}
+\noindent
+Residual = Observed $-$ Predicted = \underline{\hspace{3cm}}
+
+\vspace{1cm}
+\noindent
+\textbf{Your clue to Problem 2:} If your residual is negative and between $-10$ and $-20$, proceed to Problem 2!
+
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% PROBLEM 2 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{center}
+  {\Large \textbf{Problem 2: Hypothesis Testing for Slope}}
+\end{center}
+
+\vspace{1cm}
+\noindent
+\textbf{Stage 1: Setting Up Hypotheses}
+
+An economist wants to test whether family income (\$1000's) has a significant effect on annual spending on education (\$). She collects data from 40 families and fits a regression model. She wants to test if the slope is significantly different from zero.
+
+\vspace{0.5cm}
+\noindent
+\textbf{Question:} Write the null and alternative hypotheses for testing whether income has an effect on education spending.
+
+\begin{align*}
+H_0: &\underline{\hspace{5cm}} \\
+H_a: &\underline{\hspace{5cm}}
+\end{align*}
+
+\vspace{2cm}
+
+\noindent
+\textbf{Stage 2: Understanding Output}
+
+The regression output shows:
+\begin{itemize}
+    \item $\hat{\beta}_1 = 85.5$ (slope estimate)
+    \item $SE(\hat{\beta}_1) = 22.3$ (standard error of slope)
+    \item Sample size: $n = 40$
+\end{itemize}
+
+\vspace{0.5cm}
+\noindent
+\textbf{Question:} Calculate the t-statistic for testing $H_0: \beta_1 = 0$.
+
+\[
+t = \frac{\hat{\beta}_1 - 0}{SE(\hat{\beta}_1)} = \underline{\hspace{3cm}}
+\]
+
+\vspace{2cm}
+
+\noindent
+\textbf{Stage 3: Making a Decision}
+
+Using $df = n - 2 = 38$ and a significance level of $\alpha = 0.05$, the critical value is approximately $t^* = 2.024$.
+
+\vspace{0.5cm}
+\noindent
+\textbf{Question:} Based on your t-statistic, do you reject or fail to reject $H_0$? What does this mean in context?
+
+\vspace{3cm}
+\noindent
+\textbf{Your clue to Problem 3:} If you rejected $H_0$, you're ready for Problem 3!
+
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% PROBLEM 3 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{center}
+  {\Large \textbf{Problem 3: Confidence Intervals and $R^2$}}
+\end{center}
+
+\vspace{1cm}
+\noindent
+\textbf{Stage 1: Confidence Interval for Slope}
+
+A biologist studies how temperature (°C) affects bacterial growth rate (colonies/hour). Her regression output shows:
+\begin{itemize}
+    \item $\hat{\beta}_1 = 1.85$ colonies per hour per degree
+    \item $SE(\hat{\beta}_1) = 0.42$
+    \item $n = 30$ observations, so $df = 28$
+    \item $t^*_{0.025, 28} = 2.048$ (for 95\% CI)
+\end{itemize}
+
+\vspace{0.5cm}
+\noindent
+\textbf{Question:} Calculate a 95\% confidence interval for the true slope $\beta_1$.
+
+\[
+\hat{\beta}_1 \pm t^* \times SE(\hat{\beta}_1) = \underline{\hspace{5cm}}
+\]
+
+\vspace{2cm}
+
+\noindent
+\textbf{Stage 2: Interpreting $R^2$}
+
+The regression output also shows $R^2 = 0.73$.
+
+\vspace{0.5cm}
+\noindent
+\textbf{Question:} What does this $R^2$ value tell you about the model? Write a complete sentence.
+
+\vspace{3cm}
+
+\noindent
+\textbf{Stage 3: Understanding Adjusted $R^2$}
+
+If the biologist adds more predictors to the model, which will always increase: $R^2$, Adjusted $R^2$, or both? Why does Adjusted $R^2$ exist?
+
+\vspace{3cm}
+\noindent
+\textbf{Your clue to Problem 4:} If you said that $R^2$ always increases but Adjusted $R^2$ penalizes for added predictors, move to Problem 4!
+
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% PROBLEM 4 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{center}
+  {\Large \textbf{Problem 4: Multiple Regression Interpretation}}
+\end{center}
+
+\vspace{1cm}
+\noindent
+\textbf{Stage 1: Model Specification}
+
+A real estate analyst wants to predict house price (in \$1000's) using:
+\begin{itemize}
+    \item Square footage (SqFt)
+    \item Number of bedrooms (Beds)
+    \item Distance to downtown (Miles)
+\end{itemize}
+
+\vspace{0.5cm}
+\noindent
+\textbf{Question:} Write the full population regression model with proper notation.
+
+\[
+\text{Price} = \underline{\hspace{8cm}}
+\]
+
+\vspace{2cm}
+
+\noindent
+\textbf{Stage 2: Coefficient Interpretation}
+
+After fitting the model, the estimated equation is:
+\[
+\widehat{\text{Price}} = 50.3 + 0.12 \times \text{SqFt} + 25.5 \times \text{Beds} - 8.3 \times \text{Miles}
+\]
+
+\vspace{0.5cm}
+\noindent
+\textbf{Question:} Interpret the coefficient $\hat{\beta}_{\text{Beds}} = 25.5$ in context. Make sure to include the phrase "holding all else constant."
+
+\vspace{3cm}
+
+\noindent
+\textbf{Stage 3: Making a Prediction}
+
+Use the fitted model to predict the price of a house with:
+\begin{itemize}
+    \item 2000 square feet
+    \item 3 bedrooms
+    \item 5 miles from downtown
+\end{itemize}
+
+\[
+\widehat{\text{Price}} = \underline{\hspace{6cm}}
+\]
+
+\vspace{2cm}
+\noindent
+\textbf{Your clue to Problem 5:} If your predicted price is between \$250K and \$350K, head to Problem 5!
+
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% PROBLEM 5 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{center}
+  {\Large \textbf{Problem 5: Categorical Variables \& Dummy Coding}}
+\end{center}
+
+\vspace{1cm}
+\noindent
+\textbf{Stage 1: Understanding Dummy Variables}
+
+A study examines the relationship between years of experience and salary, but also accounts for whether employees work remotely or in-office. The researchers create a dummy variable:
+\[
+\text{Remote} = \begin{cases}
+1 & \text{if employee works remotely} \\
+0 & \text{if employee works in office}
+\end{cases}
+\]
+
+They fit the model:
+\[
+\widehat{\text{Salary}} = 45000 + 2500 \times \text{Experience} + 7000 \times \text{Remote}
+\]
+
+\vspace{0.5cm}
+\noindent
+\textbf{Question:} What is the baseline category (reference group) in this model?
+
+\vspace{2cm}
+
+\noindent
+\textbf{Stage 2: Interpretation}
+
+Using the model above:
+
+\vspace{0.5cm}
+\noindent
+\textbf{Question A:} What is the predicted salary for an in-office employee with 5 years of experience?
+
+\vspace{2cm}
+
+\noindent
+\textbf{Question B:} What is the predicted salary for a remote employee with 5 years of experience?
+
+\vspace{2cm}
+
+\noindent
+\textbf{Stage 3: Coefficient Meaning}
+
+\textbf{Question:} In plain English, what does the coefficient $\hat{\beta}_{\text{Remote}} = 7000$ tell us?
+
+\vspace{3cm}
+\noindent
+\textbf{Your clue to Problem 6:} The difference in predicted salaries between remote and in-office workers (same experience) should be \$7,000. If you got this, proceed to the final problem!
+
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% PROBLEM 6 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{center}
+  {\Large \textbf{Problem 6: Interaction Effects (Putting It All Together!)}}
+\end{center}
+
+\vspace{1cm}
+\noindent
+\textbf{Stage 1: Recognizing Interactions}
+
+Recall the interaction lesson from Part 1. A researcher studying student test scores believes that study hours might have a different effect for students who attend tutoring versus those who don't.
+
+\vspace{0.5cm}
+\noindent
+She fits two models:
+
+\textbf{Model 1 (No Interaction):}
+\[
+\widehat{\text{Score}} = 60 + 2.5 \times \text{Hours} + 8 \times \text{Tutoring}
+\]
+
+\textbf{Model 2 (With Interaction):}
+\[
+\widehat{\text{Score}} = 55 + 1.8 \times \text{Hours} + 12 \times \text{Tutoring} + 1.2 \times (\text{Hours} \times \text{Tutoring})
+\]
+
+where Tutoring = 1 if student attended tutoring, 0 otherwise.
+
+\vspace{0.5cm}
+\noindent
+\textbf{Question:} In Model 1, what does the slope of Hours represent for students who did NOT attend tutoring? What about for students who DID attend tutoring?
+
+\vspace{3cm}
+
+\noindent
+\textbf{Stage 2: Understanding the Interaction Term}
+
+Using Model 2:
+
+\vspace{0.5cm}
+\noindent
+\textbf{Question A:} Write the fitted equation for students who DID NOT attend tutoring (Tutoring = 0).
+
+\vspace{2cm}
+
+\noindent
+\textbf{Question B:} Write the fitted equation for students who DID attend tutoring (Tutoring = 1).
+
+\vspace{2cm}
+
+\noindent
+\textbf{Stage 3: Interpretation and Hypothesis Testing}
+
+\textbf{Question A:} Based on your equations from Stage 2, what is the slope of Hours for each group? Does the effect of study hours differ between groups?
+
+\vspace{3cm}
+
+\noindent
+\textbf{Question B:} If we wanted to test whether the interaction term is statistically significant, what would be our null and alternative hypotheses?
+
+\begin{align*}
+H_0: &\underline{\hspace{5cm}} \\
+H_a: &\underline{\hspace{5cm}}
+\end{align*}
+
+\vspace{2cm}
+\noindent
+\textbf{Congratulations!} You've completed the Linear Regression Review Scavenger Hunt!
+
+\vspace{1cm}
+\noindent
+\textbf{Total Score: \underline{\hspace{2cm}} / 1800}
+
+\newpage
+
+\section*{Answer Key for CPT Semmel}
+
+\subsection*{Problem 1: Simple Linear Regression Basics}
+\begin{itemize}
+    \item \textbf{Stage 1:} For each additional hour of weekly training, marathon completion time decreases by 3.2 minutes (on average).
+    \item \textbf{Stage 2:} $\widehat{\text{Time}} = 245 - 3.2(15) = 245 - 48 = 197$ minutes
+    \item \textbf{Stage 3:} Residual = $190 - 197 = -7$ minutes (model overestimated)
+\end{itemize}
+
+\subsection*{Problem 2: Hypothesis Testing for Slope}
+\begin{itemize}
+    \item \textbf{Stage 1:} $H_0: \beta_1 = 0$; $H_a: \beta_1 \neq 0$
+    \item \textbf{Stage 2:} $t = 85.5/22.3 = 3.834$
+    \item \textbf{Stage 3:} Since $|t| = 3.834 > 2.024$, reject $H_0$. There is significant evidence that income has an effect on education spending.
+\end{itemize}
+
+\subsection*{Problem 3: Confidence Intervals and $R^2$}
+\begin{itemize}
+    \item \textbf{Stage 1:} $1.85 \pm 2.048(0.42) = 1.85 \pm 0.860 = (0.99, 2.71)$ colonies per hour per degree
+    \item \textbf{Stage 2:} 73\% of the variation in bacterial growth rate is explained by temperature.
+    \item \textbf{Stage 3:} $R^2$ always increases (or stays same); Adjusted $R^2$ penalizes for adding predictors that don't improve the model enough.
+\end{itemize}
+
+\subsection*{Problem 4: Multiple Regression Interpretation}
+\begin{itemize}
+    \item \textbf{Stage 1:} $\text{Price} = \beta_0 + \beta_1 \text{SqFt} + \beta_2 \text{Beds} + \beta_3 \text{Miles} + \epsilon$
+    \item \textbf{Stage 2:} Holding square footage and distance constant, each additional bedroom is associated with an increase of \$25,500 in house price (on average).
+    \item \textbf{Stage 3:} $\widehat{\text{Price}} = 50.3 + 0.12(2000) + 25.5(3) - 8.3(5) = 50.3 + 240 + 76.5 - 41.5 = 325.3$ thousand dollars (\$325,300)
+\end{itemize}
+
+\subsection*{Problem 5: Categorical Variables \& Dummy Coding}
+\begin{itemize}
+    \item \textbf{Stage 1:} In-office employees (Remote = 0) are the baseline/reference group.
+    \item \textbf{Stage 2A:} $\widehat{\text{Salary}} = 45000 + 2500(5) + 7000(0) = 57,500$
+    \item \textbf{Stage 2B:} $\widehat{\text{Salary}} = 45000 + 2500(5) + 7000(1) = 64,500$
+    \item \textbf{Stage 3:} Remote employees earn \$7,000 more on average than in-office employees, holding years of experience constant.
+\end{itemize}
+
+\subsection*{Problem 6: Interaction Effects}
+\begin{itemize}
+    \item \textbf{Stage 1:} In Model 1, the slope is 2.5 for both groups (no interaction—parallel lines).
+    \item \textbf{Stage 2A:} $\widehat{\text{Score}} = 55 + 1.8 \times \text{Hours}$ (no tutoring)
+    \item \textbf{Stage 2B:} $\widehat{\text{Score}} = 55 + 1.8 \times \text{Hours} + 12 + 1.2 \times \text{Hours} = 67 + 3.0 \times \text{Hours}$ (with tutoring)
+    \item \textbf{Stage 3A:} Slope = 1.8 (no tutoring), Slope = 3.0 (with tutoring). Yes, the effect differs!
+    \item \textbf{Stage 3B:} $H_0: \beta_3 = 0$ (no interaction); $H_a: \beta_3 \neq 0$ (interaction exists)
+\end{itemize}
+
+\end{document}
