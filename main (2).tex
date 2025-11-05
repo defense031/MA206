@@ -1,0 +1,187 @@
+\documentclass[12pt]{article}
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+\usepackage{graphicx} % For including images
+\usepackage{fancyhdr} % For headers and footers
+\usepackage{hyperref}
+\usepackage{caption}
+\usepackage{booktabs}
+\usepackage{amsmath}
+\usepackage{xcolor}
+\usepackage{pgfplots}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{pdflscape}
+\usepackage{float}
+\usepackage{placeins}
+\pgfplotsset{compat=1.17}
+\usepackage{tikz}
+
+\begin{document}
+
+% Header block
+\noindent
+\begin{minipage}[t]{0.075\textwidth}
+    \vspace{0pt}
+    \includegraphics[width=1.6cm]{figures/Math_Mule.png} % Replace with your logo file name
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.9\textwidth}
+    \vspace{0pt}
+    \begin{tabular}{p{0.55\textwidth} p{0.4\textwidth}}
+        \textbf{\Large MA206} & \hfill AY25-2 \\
+        Probability \& Statistics & \hfill Lesson 20 \\
+        Lesson: Multiple Linear Regression II & \hfill Cadet: \underline{\hspace{2cm}}
+    \end{tabular}
+\end{minipage}
+
+\vspace{1em}
+\hrule
+\vspace{0.5cm}
+
+\section*{Lesson Objectives}
+\begin{enumerate}
+    \item Understand the impact of interaction effects on a linear model
+    \item Summarize model performance in a tabular format
+\end{enumerate}
+
+\hrule
+\vspace{0.5cm}
+
+
+
+\subsection*{Interaction Effects: Conceptual Overview}
+
+\noindent
+\textbf{Motivating Example:} A tutoring program may boost low‑performers’ test scores far more than high‑performers’. This unequal benefit is an \textit{interaction} effect.
+
+\vspace{0.25cm}
+
+\noindent
+\textbf{What Is an Interaction?}
+\begin{itemize}
+  \item Occurs when one predictor’s effect on \(Y\) changes based on another predictor.
+  \item Captures synergy between variables.
+        \begin{itemize}
+            \item Amplifying
+            \item Dampening
+        \end{itemize}
+\end{itemize}
+
+\vspace{0.25cm}
+
+\noindent
+\textbf{Visual Comparison:}
+\begin{itemize}
+  \item \textbf{Before Interaction:} Parallel slopes → same effect of \(X\) across groups.
+  \item \textbf{After Interaction:} Divergent slopes → effect of \(X\) depends on group.
+\end{itemize}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.9\textwidth]{figures/interaction_before_after.png}
+  \caption{Left: No interaction. Right: With interaction.}
+\end{figure}
+
+\vspace{0.25cm}
+
+\noindent
+\textbf{General Form:} 
+\[
+\widehat y = \hat{\beta}_0 + \hat{\beta}_1 x_1 + \hat{\beta}_2 x_2 + \hat{\beta}_3 (x_1 \times x_2)
+\]
+\begin{itemize}
+  \item \(\hat{\beta}_3\) $\neq$ 0 indicates an interaction may be present.
+\end{itemize}
+
+\vspace{0.25cm}
+
+\noindent
+\textbf{Interpretation of \(\hat{\beta}_3\):}
+\begin{itemize}
+  \item Positive: predictors amplify each other.
+  \item Negative: one predictor weakens the other.
+\end{itemize}
+
+\vspace{0.5cm}
+
+
+
+\noindent
+\textbf{Why It Matters:}
+\begin{itemize}
+  \item Reveals conditional relationships that additive models miss.
+  \item Helps identify subgroups for whom predictors have stronger or weaker effects.
+  \item Improves predictive accuracy by capturing the interplay between variables.
+  \item Guides targeted interventions by highlighting when and for whom a predictor is most impactful.
+\end{itemize}
+
+
+
+
+
+
+
+
+
+
+
+
+\section*{Interaction: Attendance × CorpsSquad}
+An \textbf{interaction} means the effect of one predictor depends on another. Here, we ask: “Does the benefit of higher attendance on TEE differ for Corps Squad cadets versus non‑Corps Squad cadets?”  
+
+\begin{figure}[H]
+  \centering
+  \begin{subfigure}[b]{0.45\textwidth}
+    \includegraphics[width=\textwidth]{figures/attendance_interaction_plot.png}
+    \caption{Predicted TEE vs Attendance}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[b]{0.45\textwidth}
+    \includegraphics[width=\textwidth]{figures/attendance_slope_plot.png}
+    \caption{Attendance Effect (Slope) by Group}
+  \end{subfigure}
+  \caption{Interaction shows Corps Squad cadets gain more TEE points per \% attendance than non‑Corps cadets.}
+\end{figure}
+\FloatBarrier
+
+\noindent
+\textbf{Takeaway:} The red line’s steeper slope indicates Corps Squad cadets benefit more from improved attendance than non‑Corps Squad Cadets — a possible interaction effect!
+
+\subsection*{Model Summaries}
+Use the package \texttt{stargazer} in R to help you make tidy tables!
+
+% Table created by stargazer v.5.2.3 by Marek Hlavac, Social Policy Institute. E-mail: marek.hlavac at gmail.com
+% Date and time: Wed, Mar 26, 2025 - 9:57:52 AM
+\begin{table}[!htbp] \centering 
+  \caption{Regression Results} 
+  \label{} 
+\begin{tabular}{@{\extracolsep{5pt}}lcccccc} 
+\\[-1.8ex]\hline 
+\hline \\[-1.8ex] 
+ & \multicolumn{6}{c}{Dependent variable: TEE} \\ 
+\cline{2-7} 
+\\[-1.8ex] & \multicolumn{6}{c}{} \\ 
+ & Model 1 & Model 2 & Model 3 & Model 4 & Model 5 & Model 6 \\ 
+\\[-1.8ex] & (1) & (2) & (3) & (4) & (5) & (6)\\ 
+\hline \\[-1.8ex] 
+ gpa & 5.802 & 2.779 & 3.207 & 2.809 & 2.983 & 2.395 \\ 
+  corps &  & $-$13.798$^{***}$ & $-$1.906 & 1.718 & 1.852 & $-$58.065 \\ 
+  hours &  &  & 3.323$^{**}$ &  & 1.422 & $-$0.686 \\ 
+  attend &  &  &  & 0.587$^{**}$ & 0.400 & 0.490$^{*}$ \\ 
+  corps:attend &  &  &  &  &  & 0.825$^{*}$ \\ 
+  Constant & 65.677$^{***}$ & 81.627$^{***}$ & 53.241$^{***}$ & 27.075 & 32.348 & 43.050$^{**}$ \\ 
+ \hline \\[-1.8ex] 
+Observations & 15 & 15 & 15 & 15 & 15 & 15 \\ 
+Adjusted R$^{2}$ & 0.048 & 0.791 & 0.896 & 0.912 & 0.913 & 0.939 \\ 
+\hline 
+\hline \\[-1.8ex] 
+\textit{Note:}  & \multicolumn{6}{r}{$^{*}$p$<$0.05; $^{**}$p$<$0.01; $^{***}$p$<$0.001} \\ 
+\end{tabular} 
+\end{table} 
+
+
+
+
+
+\end{document}
