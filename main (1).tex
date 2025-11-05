@@ -1,0 +1,469 @@
+\documentclass[12pt]{article}
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+\usepackage{graphicx} % For including images
+\usepackage{fancyhdr} % For headers and footers
+\usepackage{hyperref}
+\usepackage{caption}
+\usepackage{booktabs}
+\usepackage{amsmath}
+\usepackage{xcolor}
+\usepackage{pgfplots}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{pdflscape}
+\usepackage{float}
+\usepackage{placeins}
+\renewcommand\arraystretch{1.3}
+\pgfplotsset{compat=1.17}
+\usepackage{tikz}
+
+\begin{document}
+% Header block
+\noindent
+\begin{minipage}[t]{0.075\textwidth}
+    \vspace{0pt}
+    \includegraphics[width=1.6cm]{figures/Math_Mule.png} % Replace with your logo file name
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.9\textwidth}
+    \vspace{0pt}
+    \begin{tabular}{p{0.55\textwidth} p{0.4\textwidth}}
+        \textbf{\Large MA206} & \hfill AY25-2 \\
+        Probability \& Statistics & \hfill Lesson 21 \\
+        Lesson: Multiple Linear Regression III & \hfill Cadet: \underline{\hspace{2cm}}
+    \end{tabular}
+\end{minipage}
+
+\vspace{1em}
+\hrule
+\vspace{0.5cm}
+
+\section*{Lesson Objectives}
+\begin{enumerate}
+    \item Review linear regression concepts
+\end{enumerate}
+
+\hrule
+\vspace{0.5cm}
+
+
+
+
+\section*{Game Rules and Scoring System}
+
+\textbf{Overview:} You will work through \emph{five} problems, each divided into three stages:
+\begin{itemize}
+    \item \textbf{Stage 1:} Identify the type of problem or procedure from the review table.
+    \item \textbf{Stage 2:} Examine a small dataset excerpt and decide which variables matter.
+    \item \textbf{Stage 3:} State the model and validity conditions (or specify the null/alternative hypotheses, depending on the question).
+\end{itemize}
+
+\textbf{Scoring:}
+\begin{itemize}
+    \item Each stage of each problem is worth \textbf{100 points} if you answer correctly on the first attempt.
+    \item If your first attempt is \emph{incorrect}, you can only earn \textbf{50 points} for that stage.
+    \item Hints cost 25 points.
+\end{itemize}
+
+\textbf{Flow of the Game:}
+\begin{enumerate}
+    \item At each stage, check your answer with CPT Semmel to move on.
+    \item Proceed similarly through \textbf{Stage 2} and \textbf{Stage 3} for Problem~1, then move to Problem~2, etc.
+    \item Add up your points at the end to see your total out of 1500!
+\end{enumerate}
+
+
+
+
+
+
+
+
+
+\newpage
+
+
+\begin{landscape}
+\begin{table}[htbp]
+\centering
+\begin{tabular}{|p{2cm}|p{2.6cm}|p{2cm}|p{3.6cm}|p{3.3cm}|p{2.5cm}|p{2.3cm}|p{2.8cm}|}
+\hline
+\textbf{Variables} & \textbf{One}\newline\textbf{Categorical} & \textbf{One Quant.} & \textbf{Categorical Expl}\newline\textbf{Categorical Resp} & \textbf{Categorical Expl}\newline\textbf{Quantitative Resp} & \textbf{Cat Expl Quant Resp}\newline\textbf{(Paired Data)} & \textbf{Two Quant.} & \textbf{Multiple Quant \&}\newline\textbf{Categorical} \\
+\hline
+Interest? & One Proportion & One Mean & Difference in Two Proportions & Difference in Two Means & Mean of Differences & Least Squares Regression & Multiple Regression \\
+\hline
+Standard. Stat &
+\begin{tabular}{@{}l@{}}
+$z =$ \\[1ex]
+$\displaystyle \frac{\hat p - \pi_0}{\sqrt{\pi_0(1-\pi_0)/n}}$
+\end{tabular} &
+$t = \dfrac{\bar x - \mu_0}{s/\sqrt n}$ &
+\begin{tabular}{@{}l@{}}
+$z =$ \\[1ex]
+$\displaystyle \frac{\hat p_1 - \hat p_2}{\sqrt{\hat p(1-\hat p)\,\bigl(\frac1{n_1} + \frac1{n_2}\bigr)}}$
+\end{tabular} &
+\begin{tabular}{@{}l@{}}
+$t = \dfrac{\bar x_1 - \bar x_2}{\sqrt{\frac{s_1^2}{n_1} + \frac{s_2^2}{n_2}}}$
+\end{tabular} &
+$t = \dfrac{\bar x_d}{s_d/\sqrt{n_d}}$ &
+$t = \dfrac{\hat\beta_1}{\mathrm{SE}(\hat\beta_1)}$ &
+$t = \dfrac{\hat\beta_j}{\mathrm{SE}(\hat\beta_j)}$ \\
+\hline
+
+
+Model & & & & & & $y=\beta_0+\beta_1 x$ & $y=\beta_0+\beta_1 x_1+\dots+\beta_n x_n$ \\
+\hline
+Validity Conditions for Theory-based Approach & 
+$\ge10$ successes\newline$\ge10$ failures & 
+symmetric dist\newline or\newline$\ge20$ obs \& not strongly skewed & 
+$\ge10$ obs in each cell of 2$\times$2 table & 
+symmetric dist for both groups\newline or\newline$\ge20$ obs each \& not skewed & 
+symmetric dist of differences\newline or\newline$\ge20$ diffs \& not skewed & 
+\underline{LINE}\newline Linearity\newline Independence\newline Normality\newline Equal variance & 
+\underline{LINE}\newline Linearity\newline Independence\newline Normality\newline Equal variance \\
+\hline
+Course Guide & 
+``one-proportion z-test'' /\newline``confidence interval for a categorical variable'' & 
+``one-sample t-test'' /\newline``confidence interval for a quantitative variable'' & 
+``two-proportion z-test'' / immediately following & 
+``two-sample t-test'' / immediately following & 
+``paired test'' (use \textit{mutate} to create a single quantitative ``difference''), \textbf{then} ``comparing the differences'' & 
+``least squares regression line'' & 
+``multiple linear regression model'' \\
+\hline
+
+\end{tabular}
+\label{tab:stat-concepts}
+
+\centering
+\end{table}
+\end{landscape}
+
+
+
+
+
+
+
+
+
+\newpage
+\begin{center}
+  {\Large \textbf{Problem 1: Categorical Hypothesis Test}}
+\end{center}
+
+\vspace{1cm}
+\noindent
+\textbf{Stage 1: Word Problem}  
+A snack company claims that 20\% of its candies are grape-flavored. A consumer group suspects this might not be true. They purchase large multi‑packs, randomly select 400 candies, and record how many are grape. They want to test whether the true proportion of grape candies differs from 0.20.
+
+
+\vspace{2cm}
+\noindent
+\textbf{Stage 2: Sample Data} (first 5 and last rows shown)  
+\begin{center}
+\begin{tabular}{lcccc}
+\toprule
+\textbf{Candy \#} & \textbf{Taster Name} & \textbf{Flavor} & \textbf{Store ID} & \textbf{Sweetness Rating} \\
+\midrule
+1    & Alice    & Grape   & 101 & 8 \\
+2    & Bob      & Lemon   & 101 & 6 \\
+3    & Charlie  & Grape   & 102 & 7 \\
+4    & Denise   & Orange  & 102 & 9 \\
+5    & Erica    & Grape   & 103 & 8 \\
+\midrule
+\multicolumn{5}{c}{\vdots} \\[1ex]
+\midrule
+400  & Harriet  & Grape   & 117 & 7 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+
+
+
+
+\vspace{2cm}
+\noindent
+\textbf{Stage 3: Model Specification \& Validity Conditions}  
+\begin{itemize}
+    \item State $H_0: \hspace{3cm}$ vs.\ $H_a:$  
+    \item Identify the name of the test statistic.
+    \item List the validity conditions for this theory‑based approach.
+\end{itemize}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% PROBLEM 2 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\begin{center}
+  {\Large \textbf{Problem 2: Quantitative Confidence Interval}}
+\end{center}
+
+\vspace{2cm}
+\noindent
+\textbf{Stage 1: Word Problem}  
+A university wants to estimate the mean number of hours students study statistics each week. They randomly select 50 students and record each student’s reported study hours.
+
+\vspace{2cm}
+\noindent
+\textbf{Stage 2: Sample Data} (first 5 rows shown)  
+\begin{center}
+\begin{tabular}{lccc}
+\toprule
+\textbf{Student} & \textbf{Hours/Week} & \textbf{Major} & \textbf{Class Year}\\
+\midrule
+1 & 10.5 & Biology & Freshman \\
+2 & 2.0  & Math    & Sophomore \\
+3 & 9.0  & Finance & Junior \\
+4 & 4.5  & English & Sophomore \\
+5 & 11.0 & Nursing & Senior \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+
+\vspace{2cm}
+\noindent
+\textbf{Stage 3: Model Specification \& Validity Conditions}  
+\begin{itemize}
+    \item State $H_0: \hspace{3cm}$ vs.\ $H_a:$    
+    \item Identify the test/interval type.  
+    \item State the validity conditions.
+\end{itemize}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% PROBLEM 3 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\begin{center}
+  {\Large \textbf{Problem 3: Pooled Difference of Two Means}}
+\end{center}
+
+\vspace{2cm}
+\noindent
+\textbf{Stage 1: Word Problem}  
+An agricultural researcher compares two tomato plant types (Type~A vs.\ Type~B) grown under the same conditions. She suspects they have different average yields, but also believes the population variances are equal. She grows 20 plants of each type and records the yield in pounds/plant.
+
+
+\vspace{2cm}
+\noindent
+\textbf{Stage 2: Sample Data} (first 5 rows shown for each type)  
+\begin{center}
+\begin{tabular}{lcc}
+\toprule
+\textbf{Plant ID} & \textbf{Plant Type} & \textbf{Yield (lbs)} \\
+\midrule
+1 & A & 6.8 \\
+2 & A & 7.1 \\
+3 & A & 9.3 \\
+4 & A & 5.9 \\
+5 & A & 8.2 \\
+\midrule
+6  & B & 6.2 \\
+7  & B & 6.4 \\
+8  & B & 8.0 \\
+9  & B & 7.7 \\
+10 & B & 9.5 \\
+\bottomrule
+\end{tabular}
+\end{center}
+\emph{(Note: The full data would have 20 rows for each type.)}
+
+
+\vspace{2cm}
+\noindent
+\textbf{Stage 3: Model Specification \& Validity Conditions}  
+\begin{itemize}
+    \item State $H_0: \hspace{3cm}$ vs.\ $H_a:$  
+    \item Identify the type of test being performed.
+    \item Write the validity conditions.
+\end{itemize}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% PROBLEM 4 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\begin{center}
+  {\Large \textbf{Problem 4: Paired Difference of Proportions}}
+\end{center}
+
+\vspace{2cm}
+\noindent
+\textbf{Stage 1: Word Problem}  
+A researcher compares two diagnostic kits (Kit~1 vs.\ Kit~2) on the same set of 30 patients, each test yielding Positive or Negative. She wonders if Kit~1 has the same (or different) probability of a positive result compared to Kit~2. Because each patient is tested with both kits, the data are paired.
+
+
+\vspace{2cm}
+\noindent
+\textbf{Stage 2: Sample Data} (first 5 and one repeated measure shown)
+\begin{center}
+\begin{tabular}{lcccc}
+\toprule
+\textbf{Patient ID} & \textbf{Date} & \textbf{Kit 1 Result} & \textbf{Kit 2 Result} & \textbf{Age} \\
+\midrule
+1 & 2025-03-01 & Positive & Positive & 45 \\
+2 & 2025-03-02 & Negative & Negative & 51 \\
+3 & 2025-03-03 & Positive & Negative & 29 \\
+4 & 2025-03-04 & Positive & Positive & 33 \\
+5 & 2025-03-05 & Negative & Positive & 58 \\
+\midrule
+\multicolumn{5}{c}{\vdots} \\[0.75em]
+\midrule
+2 & 2025-03-15 & Positive & Negative & 51 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+
+
+\vspace{2cm}
+\noindent
+\textbf{Stage 3: Model Specification \& Validity Conditions}  
+\begin{itemize}
+    \item State $H_0: \hspace{3cm}$ vs.\ $H_a:$  
+    \item Identify the type of test being performed.
+    \item Write the validity conditions.
+\end{itemize}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% PROBLEM 5 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\begin{center}
+  {\Large \textbf{Problem 5: Multivariate Linear Regression}}
+\end{center}
+
+\vspace{2cm}
+\noindent
+\textbf{Stage 1: Word Problem}  
+A real‑estate analyst wants to predict house prices based on square footage, house age, and distance from the nearest shopping center. She collects data on recently sold homes and records these variables.
+
+
+\vspace{2cm}
+\noindent
+\textbf{Stage 2: Sample Data} (first 5 houses shown)  
+\begin{center}
+\begin{tabular}{lcccc}
+\toprule
+\textbf{House} & \textbf{Price (K\$)} & \textbf{SqFt} & \textbf{Age (yrs)} & \textbf{Dist to Shopping (mi)} \\
+\midrule
+1 & 320 & 1800 & 10 & 1.2 \\
+2 & 270 & 1500 & 20 & 3.5 \\
+3 & 410 & 2500 &  5 & 2.0 \\
+4 & 390 & 2400 & 12 & 0.8 \\
+5 & 250 & 1400 & 25 & 4.0 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+
+
+\vspace{2cm}
+\noindent
+\textbf{Stage 3: Model Specification \& Validity Conditions}  
+\begin{itemize}
+    \item State $H_0: \hspace{3cm}$ vs.\ $H_a:$  
+    \item Identify the fully specified model and write the equation.
+    \item Write the validity conditions.
+\end{itemize}
+
+
+
+%%%%%% BOSTON HOUSING PREDICTION GAME %%%%%%%%
+\newpage
+
+\section*{Boston Housing Prediction Game Rules}
+
+\textbf{Overview:} \\
+In this game, your goal is to predict the median value (MEDV) of homes (in \$1000's) using a set of predictors drawn from the Boston Housing dataset (506 cases, circa 1978). Each round you will be provided with a simulated set of predictor values. You must enter your prediction for MEDV, specify a wager (the number of bank points you wish to risk), and choose a prediction interval tier. Your final score will be updated based on whether the true MEDV falls within your prediction interval, as detailed below.
+
+\bigskip
+
+\textbf{Game Mechanics:}
+\begin{itemize}
+    \item Each round, a new set of predictor values is generated that is consistent with the underlying structure of the Boston Housing dataset.
+    \item You enter:
+        \begin{itemize}
+            \item A prediction for MEDV.
+            \item A wager (points you risk for that round). \\
+                  \textit{If no wager is entered, your wager is treated as zero and no points will be lost or gained.}
+            \item A tier selection, which determines your prediction interval width and multiplier.
+        \end{itemize}
+    \item If your prediction interval contains the true MEDV, you earn additional points equal to your wager multiplied by the tier's hit multiplier (minus your wager). If it does not, you lose your wager.
+\end{itemize}
+
+\bigskip
+
+\textbf{Prediction Interval Tiers and Multipliers:}
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{lcc}
+\toprule
+\textbf{Tier} & \textbf{Prediction Interval (± \$1000's)} & \textbf{Hit Multiplier} \\
+\midrule
+Super Narrow & $\pm 1$   & 6.0 \\
+Narrow       & $\pm 2.5$ & 3.5 \\
+Regular      & $\pm 7.5$ & 2.0 \\
+Wide         & $\pm 15$  & 1.5 \\
+\bottomrule
+\end{tabular}
+\caption{Prediction Interval Tiers and Multipliers}
+\end{table}
+
+\noindent
+\textbf{Dataset:} \\
+The Boston Housing dataset comprises 506 cases from the Boston area (circa 1978). Each case contains 13 attributes related to housing, demographics, and economic conditions.
+
+\noindent
+\textbf{Task}: \\
+Your task is to create the best model you possibly can to predict a neighborhood's median value (\texttt{medv}).
+
+\newpage
+
+\textbf{Data Dictionary:}
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{ll}
+\toprule
+\textbf{Attribute} & \textbf{Description} \\
+\midrule
+CRIM & Per capita crime rate by town \\
+ZN & Proportion of residential land zoned for lots over 25,000 sq.ft. \\
+INDUS & Proportion of non-retail business acres per town \\
+CHAS & Charles River dummy variable (1 if tract bounds river; 0 otherwise) \\
+NOX & Nitric oxides concentration (parts per 10 million) \\
+RM & Average number of rooms per dwelling \\
+AGE & Proportion of owner-occupied units built prior to 1940 \\
+DIS & Weighted distances to five Boston employment centres \\
+RAD & Index of accessibility to radial highways \\
+TAX & Full-value property-tax rate per \$10,000 \\
+PTRATIO & Pupil-teacher ratio by town \\
+LSTAT & \% lower status of the population \\
+MEDV & Median value of owner-occupied homes (in \$1000's) \\
+\bottomrule
+\end{tabular}
+\caption{Boston Housing Dataset Attributes}
+\end{table}
+
+\bigskip
+
+\textbf{Scoring:}
+\begin{itemize}
+    \item \textbf{Correct Prediction:} If your prediction interval contains the true MEDV, your bank points increase by 
+    \[
+    \text{Wager} \times (\text{Hit Multiplier} - 1).
+    \]
+    \item \textbf{Incorrect Prediction:} If the true MEDV is not within your prediction interval, you lose your wager.
+    \item \textbf{No Wager:} If you do not enter a wager, your bank points remain unchanged for that round.
+\end{itemize}
+
+\bigskip
+
+\textbf{Objective:} Maximize your points across all rounds by balancing risk and reward.
+
+
+
+
+
+
+\end{document}
