@@ -142,7 +142,7 @@ An \textbf{interaction} means the effect of one predictor depends on another. He
 
 \subsection*{Game Rules and Scoring System}
 
-\textbf{Overview:} You will work through \emph{six} regression problems, each divided into three stages:
+\textbf{Overview:} You will work through \emph{five} regression problems. Most problems have three stages, but the final problem has six stages:
 \begin{itemize}
     \item \textbf{Stage 1:} Identify the regression concept being tested
     \item \textbf{Stage 2:} Examine regression output or data
@@ -212,10 +212,6 @@ Suppose a runner who trains 15 hours per week actually completed the marathon in
 \noindent
 Residual = Observed $-$ Predicted = \underline{\hspace{3cm}}
 
-\vspace{1cm}
-\noindent
-\textbf{Your clue to Problem 2:} If your residual is negative and between $-10$ and $-20$, proceed to Problem 2!
-
 \newpage
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% PROBLEM 2 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -270,8 +266,6 @@ Using $df = n - 2 = 38$ and a significance level of $\alpha = 0.05$, the critica
 \textbf{Question:} Based on your t-statistic, do you reject or fail to reject $H_0$? What does this mean in context?
 
 \vspace{3cm}
-\noindent
-\textbf{Your clue to Problem 3:} If you rejected $H_0$, you're ready for Problem 3!
 
 \newpage
 
@@ -319,8 +313,6 @@ The regression output also shows $R^2 = 0.73$.
 If the biologist adds more predictors to the model, which will always increase: $R^2$, Adjusted $R^2$, or both? Why does Adjusted $R^2$ exist?
 
 \vspace{3cm}
-\noindent
-\textbf{Your clue to Problem 4:} If you said that $R^2$ always increases but Adjusted $R^2$ penalizes for added predictors, move to Problem 4!
 
 \newpage
 
@@ -379,14 +371,12 @@ Use the fitted model to predict the price of a house with:
 \]
 
 \vspace{2cm}
-\noindent
-\textbf{Your clue to Problem 5:} If your predicted price is between \$250K and \$350K, head to Problem 5!
 
 \newpage
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% PROBLEM 5 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{center}
-  {\Large \textbf{Problem 5: Categorical Variables \& Dummy Coding}}
+  {\Large \textbf{Problem 5: Categorical Variables, Dummy Coding \& Interactions}}
 \end{center}
 
 \vspace{1cm}
@@ -434,19 +424,9 @@ Using the model above:
 \textbf{Question:} In plain English, what does the coefficient $\hat{\beta}_{\text{Remote}} = 7000$ tell us?
 
 \vspace{3cm}
+
 \noindent
-\textbf{Your clue to Problem 6:} The difference in predicted salaries between remote and in-office workers (same experience) should be \$7,000. If you got this, proceed to the final problem!
-
-\newpage
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% PROBLEM 6 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{center}
-  {\Large \textbf{Problem 6: Interaction Effects (Putting It All Together!)}}
-\end{center}
-
-\vspace{1cm}
-\noindent
-\textbf{Stage 1: Recognizing Interactions}
+\textbf{Stage 4: Recognizing Interactions}
 
 Recall the interaction lesson from Part 1. A researcher studying student test scores believes that study hours might have a different effect for students who attend tutoring versus those who don't.
 
@@ -473,7 +453,7 @@ where Tutoring = 1 if student attended tutoring, 0 otherwise.
 \vspace{3cm}
 
 \noindent
-\textbf{Stage 2: Understanding the Interaction Term}
+\textbf{Stage 5: Understanding the Interaction Term}
 
 Using Model 2:
 
@@ -489,9 +469,9 @@ Using Model 2:
 \vspace{2cm}
 
 \noindent
-\textbf{Stage 3: Interpretation and Hypothesis Testing}
+\textbf{Stage 6: Interpretation and Hypothesis Testing}
 
-\textbf{Question A:} Based on your equations from Stage 2, what is the slope of Hours for each group? Does the effect of study hours differ between groups?
+\textbf{Question A:} Based on your equations from Stage 5, what is the slope of Hours for each group? Does the effect of study hours differ between groups?
 
 \vspace{3cm}
 
@@ -543,21 +523,17 @@ H_a: &\underline{\hspace{5cm}}
     \item \textbf{Stage 3:} $\widehat{\text{Price}} = 50.3 + 0.12(2000) + 25.5(3) - 8.3(5) = 50.3 + 240 + 76.5 - 41.5 = 325.3$ thousand dollars (\$325,300)
 \end{itemize}
 
-\subsection*{Problem 5: Categorical Variables \& Dummy Coding}
+\subsection*{Problem 5: Categorical Variables, Dummy Coding \& Interactions}
 \begin{itemize}
     \item \textbf{Stage 1:} In-office employees (Remote = 0) are the baseline/reference group.
     \item \textbf{Stage 2A:} $\widehat{\text{Salary}} = 45000 + 2500(5) + 7000(0) = 57,500$
     \item \textbf{Stage 2B:} $\widehat{\text{Salary}} = 45000 + 2500(5) + 7000(1) = 64,500$
     \item \textbf{Stage 3:} Remote employees earn \$7,000 more on average than in-office employees, holding years of experience constant.
-\end{itemize}
-
-\subsection*{Problem 6: Interaction Effects}
-\begin{itemize}
-    \item \textbf{Stage 1:} In Model 1, the slope is 2.5 for both groups (no interaction—parallel lines).
-    \item \textbf{Stage 2A:} $\widehat{\text{Score}} = 55 + 1.8 \times \text{Hours}$ (no tutoring)
-    \item \textbf{Stage 2B:} $\widehat{\text{Score}} = 55 + 1.8 \times \text{Hours} + 12 + 1.2 \times \text{Hours} = 67 + 3.0 \times \text{Hours}$ (with tutoring)
-    \item \textbf{Stage 3A:} Slope = 1.8 (no tutoring), Slope = 3.0 (with tutoring). Yes, the effect differs!
-    \item \textbf{Stage 3B:} $H_0: \beta_3 = 0$ (no interaction); $H_a: \beta_3 \neq 0$ (interaction exists)
+    \item \textbf{Stage 4:} In Model 1, the slope is 2.5 for both groups (no interaction—parallel lines).
+    \item \textbf{Stage 5A:} $\widehat{\text{Score}} = 55 + 1.8 \times \text{Hours}$ (no tutoring)
+    \item \textbf{Stage 5B:} $\widehat{\text{Score}} = 55 + 1.8 \times \text{Hours} + 12 + 1.2 \times \text{Hours} = 67 + 3.0 \times \text{Hours}$ (with tutoring)
+    \item \textbf{Stage 6A:} Slope = 1.8 (no tutoring), Slope = 3.0 (with tutoring). Yes, the effect differs!
+    \item \textbf{Stage 6B:} $H_0: \beta_3 = 0$ (no interaction); $H_a: \beta_3 \neq 0$ (interaction exists)
 \end{itemize}
 
 \end{document}
