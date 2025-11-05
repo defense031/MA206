@@ -142,7 +142,7 @@ An \textbf{interaction} means the effect of one predictor depends on another. He
 
 \subsection*{Game Rules and Scoring System}
 
-\textbf{Overview:} You will work through \emph{five} regression problems. Most problems have three stages, but the final problem has six stages:
+\textbf{Overview:} You will work through \emph{five} regression problems. Most problems have three stages, but the final problem has four stages:
 \begin{itemize}
     \item \textbf{Stage 1:} Identify the regression concept being tested
     \item \textbf{Stage 2:} Examine regression output or data
@@ -158,9 +158,9 @@ An \textbf{interaction} means the effect of one predictor depends on another. He
 
 \textbf{Flow of the Game:}
 \begin{enumerate}
-    \item Complete all three stages of each problem.
+    \item Complete all stages of each problem.
     \item Check your answer with CPT Semmel after each stage to receive your next clue.
-    \item Add up your points at the end to see your total out of \textbf{1800 points}!
+    \item Add up your points at the end to see your total out of \textbf{1600 points}!
 \end{enumerate}
 
 \vspace{1cm}
@@ -426,20 +426,10 @@ Using the model above:
 \vspace{3cm}
 
 \noindent
-\textbf{Stage 4: Recognizing Interactions}
+\textbf{Stage 4: Understanding Interactions}
 
-Recall the interaction lesson from Part 1. A researcher studying student test scores believes that study hours might have a different effect for students who attend tutoring versus those who don't.
+Recall the interaction lesson from Part 1. A researcher studying student test scores fits a model with an interaction term:
 
-\vspace{0.5cm}
-\noindent
-She fits two models:
-
-\textbf{Model 1 (No Interaction):}
-\[
-\widehat{\text{Score}} = 60 + 2.5 \times \text{Hours} + 8 \times \text{Tutoring}
-\]
-
-\textbf{Model 2 (With Interaction):}
 \[
 \widehat{\text{Score}} = 55 + 1.8 \times \text{Hours} + 12 \times \text{Tutoring} + 1.2 \times (\text{Hours} \times \text{Tutoring})
 \]
@@ -448,40 +438,19 @@ where Tutoring = 1 if student attended tutoring, 0 otherwise.
 
 \vspace{0.5cm}
 \noindent
-\textbf{Question:} In Model 1, what does the slope of Hours represent for students who did NOT attend tutoring? What about for students who DID attend tutoring?
-
-\vspace{3cm}
-
-\noindent
-\textbf{Stage 5: Understanding the Interaction Term}
-
-Using Model 2:
-
-\vspace{0.5cm}
-\noindent
-\textbf{Question A:} Write the fitted equation for students who DID NOT attend tutoring (Tutoring = 0).
+\textbf{Question A:} Write the simplified fitted equation for students who DID NOT attend tutoring (Tutoring = 0).
 
 \vspace{2cm}
 
 \noindent
-\textbf{Question B:} Write the fitted equation for students who DID attend tutoring (Tutoring = 1).
+\textbf{Question B:} Write the simplified fitted equation for students who DID attend tutoring (Tutoring = 1).
 
 \vspace{2cm}
 
 \noindent
-\textbf{Stage 6: Interpretation and Hypothesis Testing}
-
-\textbf{Question A:} Based on your equations from Stage 5, what is the slope of Hours for each group? Does the effect of study hours differ between groups?
+\textbf{Question C:} Based on your two equations, what is the slope of Hours for each group? Does the effect of study hours differ between the two groups?
 
 \vspace{3cm}
-
-\noindent
-\textbf{Question B:} If we wanted to test whether the interaction term is statistically significant, what would be our null and alternative hypotheses?
-
-\begin{align*}
-H_0: &\underline{\hspace{5cm}} \\
-H_a: &\underline{\hspace{5cm}}
-\end{align*}
 
 \vspace{2cm}
 \noindent
@@ -489,7 +458,7 @@ H_a: &\underline{\hspace{5cm}}
 
 \vspace{1cm}
 \noindent
-\textbf{Total Score: \underline{\hspace{2cm}} / 1800}
+\textbf{Total Score: \underline{\hspace{2cm}} / 1600}
 
 \newpage
 
@@ -529,11 +498,9 @@ H_a: &\underline{\hspace{5cm}}
     \item \textbf{Stage 2A:} $\widehat{\text{Salary}} = 45000 + 2500(5) + 7000(0) = 57,500$
     \item \textbf{Stage 2B:} $\widehat{\text{Salary}} = 45000 + 2500(5) + 7000(1) = 64,500$
     \item \textbf{Stage 3:} Remote employees earn \$7,000 more on average than in-office employees, holding years of experience constant.
-    \item \textbf{Stage 4:} In Model 1, the slope is 2.5 for both groups (no interaction—parallel lines).
-    \item \textbf{Stage 5A:} $\widehat{\text{Score}} = 55 + 1.8 \times \text{Hours}$ (no tutoring)
-    \item \textbf{Stage 5B:} $\widehat{\text{Score}} = 55 + 1.8 \times \text{Hours} + 12 + 1.2 \times \text{Hours} = 67 + 3.0 \times \text{Hours}$ (with tutoring)
-    \item \textbf{Stage 6A:} Slope = 1.8 (no tutoring), Slope = 3.0 (with tutoring). Yes, the effect differs!
-    \item \textbf{Stage 6B:} $H_0: \beta_3 = 0$ (no interaction); $H_a: \beta_3 \neq 0$ (interaction exists)
+    \item \textbf{Stage 4A:} $\widehat{\text{Score}} = 55 + 1.8 \times \text{Hours}$ (no tutoring)
+    \item \textbf{Stage 4B:} $\widehat{\text{Score}} = 55 + 1.8 \times \text{Hours} + 12 + 1.2 \times \text{Hours} = 67 + 3.0 \times \text{Hours}$ (with tutoring)
+    \item \textbf{Stage 4C:} Slope = 1.8 (no tutoring), Slope = 3.0 (with tutoring). Yes, the effect of study hours differs between groups!
 \end{itemize}
 
 \end{document}
